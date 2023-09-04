@@ -1,0 +1,12 @@
+langchain
+pandas
+numpy
+unstructured
+beautifulsoup4
+google-serp-api
+requests
+streamlit
+streamlit-aggrid
+huggingface_hub
+ibm-generative-ai
+ibm-generative-ai[langchain]
