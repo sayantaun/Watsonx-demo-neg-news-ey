@@ -77,7 +77,7 @@ def calc_new_col(row):
     return reason
 
 def search_func(query,num_results,api_key):
-    #client = ScrapeitCloudClient(api_key)
+    client = ScrapeitCloudClient(api_key)
     
     try:
         params = {
@@ -90,13 +90,13 @@ def search_func(query,num_results,api_key):
             #"tbs": "qdr:y"
         }
 
-        #response = client.scrape(params)
+        response = client.scrape(params)
 
-        #data = response.json()
-        #data = data['newsResults']
-        #write_list("data.json", data)
-        #r_data = read_list("data.json")
-        r_data = read_list("data_UT.json")
+        data = response.json()
+        data = data['newsResults']
+        write_list("data.json", data)
+        r_data = read_list("data.json")
+        #r_data = read_list("data_UT.json")
         return r_data
 
     except Exception as e:
@@ -209,7 +209,7 @@ def report_pos_news(pos_news,langchain_model):
     for x in range(len(pos_news)) :
         text = pos_news[x][4]
         response = langchain_model(template.format(text=text))
-        summary = response
+        summary = response.rstrip(".")
         pos_news_results_ll = [pos_news[x][1],pos_news[x][3],summary]
         pos_news_results.append(pos_news_results_ll)
         
@@ -294,7 +294,7 @@ def report_fp(fp,langchain_model):
     for x in range(len(fp)) :
         text = fp[x][4]
         response = langchain_model(template.format(text=text))
-        summary = response
+        summary = response.rstrip(".")
         fp_results_ll = [fp[x][1],fp[x][3],summary,fp[x][5],fp[x][6],fp[x][7],fp[x][8],fp[x][9]]
         fp_results.append(fp_results_ll)
 
@@ -309,7 +309,7 @@ def report_tp(tp,langchain_model):
     for x in range(len(tp)) :
         text = tp[x][4]
         response = langchain_model(template.format(text=text))
-        summary = response
+        summary = response.rstrip(".")
         tp_results_ll = [tp[x][1],tp[x][3],summary,tp[x][5],tp[x][6],tp[x][7],tp[x][8],tp[x][9]]
         tp_results.append(tp_results_ll)
     
@@ -332,7 +332,7 @@ def  final_conclusion(tp,fp, pos_news,subject_name, num_results):
 
     fp_topic_unique = []
     for x in range(len(fp)) :
-        fp_topic_unique.extend(tp[x][5])
+        fp_topic_unique.extend(fp[x][5])
     
     l1 = list(set(tp_topic_unique))
     l2 = list(set(fp_topic_unique))
@@ -454,7 +454,7 @@ def main():
         st.write("")
         st.write("")
 
-        char_size = st.sidebar.slider("Set ~7000 to remain within context limit. Reduce if any Token Limit related Error occurred", 2000, 10000,value=7000)        
+        char_size = st.sidebar.slider("Set ~7000 to remain within context limit. Reduce only if any Token Limit related Error occurred", 2000, 10000,value=7000)        
         char_size= int(char_size)
 
         if st.button('Process'):
