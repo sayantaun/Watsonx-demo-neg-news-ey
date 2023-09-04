@@ -9,3 +9,6 @@
 ### api_key=""
 ### wx_api_key=""
 ### api_endpoint="https://workbench-api.res.ibm.com/v1/"
+
+
+### streamlit run app.py
