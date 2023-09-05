@@ -447,14 +447,14 @@ def main():
         
         write_list("filter.json", filter_param)
 
-        num_results = st.sidebar.slider("Select number of Top search results to analyze", 1, 20, value=5)        
+        num_results = st.sidebar.slider("Select number of Top search results to analyze", 1, 50, value=5)        
         num_results = int(num_results)
 
         st.write("")
         st.write("")
         st.write("")
 
-        char_size = st.sidebar.slider("Set ~7000 to remain within context limit. Reduce only if any Token Limit related Error occurred", 2000, 10000,value=7000)        
+        char_size = st.sidebar.slider("Set ~7000 to remain within context limit. Reduce only if any Token Limit related Error occurred", 2000, 15000,value=7000)        
         char_size= int(char_size)
 
         if st.button('Process'):
