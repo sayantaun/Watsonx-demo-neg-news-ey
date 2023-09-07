@@ -397,7 +397,7 @@ def main():
     st.write('Click below to generate Negative News Screening Results')
     
     with st.sidebar:
-        st.sidebar.title("Watsox.ai (Gen AI) based Negative News Screening App")
+        st.sidebar.title("Watsonx.ai (Gen AI) based Negative News Screening App")
         st.subheader("Search Inputs:")
         
         screening_source = st.selectbox('Select the screening source',('Google Search',))
